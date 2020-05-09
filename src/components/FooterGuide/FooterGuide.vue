@@ -1,24 +1,24 @@
 <template>
   <footer class="footer_guide border-1px">
-    <a href="javascript:;" class="guide_item on">
+    <a href="javascript:;" class="guide_item " @click='gochange("/msite")'   :class='{on:isflag("/msite")}'>
       <span class="item_icon">
         <i class="iconfont icon-waimai"></i>
       </span>
       <span>外卖</span>
     </a>
-    <a href="javascript:;" class="guide_item">
+    <a href="javascript:;" class="guide_item" @click='gochange("/search")'    :class='{on:isflag("/search")}'>
       <span class="item_icon">
         <i class="iconfont icon-search"></i>
       </span>
       <span>搜索</span>
     </a>
-    <a href="javascript:;" class="guide_item">
+    <a href="javascript:;" class="guide_item" @click='gochange("/order")'  :class='{on:isflag("/order")}'>
       <span class="item_icon">
         <i class="iconfont icon-dingdan"></i>
       </span>
       <span>订单</span>
     </a>
-    <a href="javascript:;" class="guide_item">
+    <a href="javascript:;" class="guide_item" @click='gochange("/profile")'  :class='{on:isflag("/profile")}'>
       <span class="item_icon">
         <i class="iconfont icon-geren"></i>
       </span>
@@ -26,7 +26,6 @@
     </a>
   </footer>
 </template>
-
 <script>
   export default {
     props: {
@@ -34,11 +33,16 @@
     },
     data() {
       return {
+       
+
 
       };
     },
     computed: {
 
+     
+      
+      
     },
     created() {
 
@@ -50,17 +54,35 @@
 
     },
     methods: {
+      // 路由路径跳转
+      gochange(paths) {
+      
+        // console.log(this.$router);
+        // 编程式路由实现跳转
+        // this.$router.push(path)  //会一直保持栈  会消耗内存 
+        this.$router.replace(paths)  //这个把体会之前的栈  保留一个  提高性能
+
+      },
+      
+        isflag(paths) {
+			console.log(paths===this.$route.path);
+			
+        return paths===this.$route.path
+        }
+
+        
+
 
     },
     components: {
 
     },
   };
-
 </script>
 
 <style scoped lang='stylus'>
-@import '../../common/stylus/mixins'
+  @import '../../common/stylus/mixins'
+  // @import '@@/stylus/mixins'
  .footer_guide  //footer
     top-border-1px(#e4e4e4)
     position fixed
@@ -89,4 +111,6 @@
         .iconfont
           font-size 22px
 
+
+ 
 </style>
