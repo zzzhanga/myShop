@@ -52,8 +52,8 @@ export default {
 // scoped 样式只能在当前组件里面使用  特别是我们的框架里面 的时候要更改样式的  scoped 
 // 需要 灵活运用   框架里面改样式 采用    /deep/  
 
-<style  scoped  lang='stylus'>
-          .header
+<style    lang='stylus'>
+        .header
             background-color #02a774
             position fixed
             z-index 100
