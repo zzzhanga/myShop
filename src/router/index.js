@@ -28,27 +28,28 @@ export default new Router(
       },
       {
         path: '/msite',
-        component: Msite
+		component: Msite,
+		meta: { requiresAuth: true }
       },
       {
         path: '/order',
-        component: Order
+		component: Order,
+		meta: { requiresAuth: true }
       },
       {
         path: '/profile',
-        component: Profile
+		component: Profile,
+		meta: { requiresAuth: true }
       },
       {
         path: '/search',
-        component: Search
+		component: Search,
+		meta: { requiresAuth: true }
 	  },
 	  {
         path: '/login',
         component: Login
 	  }
-	  
-
-
-	 
+	  	 
     ]
   })
