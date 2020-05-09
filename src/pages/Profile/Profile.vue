@@ -1,11 +1,13 @@
 <template>
    <div>
       <section class="profile">
-        <header class="header">
+        <!-- <header class="header">
           <a class="header_title">
             <span class="header_title_text">我的</span>
           </a>
-        </header>
+        </header> -->
+
+			<HeaderTop :title='mytitle'></HeaderTop>
         <section class="profile-number">
           <a href="javascript:" class="profile-link">
             <div class="profile_image">
@@ -98,12 +100,16 @@
 </template>
 
 <script>
+
+import HeaderTop from '../../components/HeaderTop/HeaderTop' 
 export default {
     props: {
 
     },
     data() {
         return {
+
+			mytitle:'我的'
 
         };
     },
@@ -123,7 +129,7 @@ export default {
 
     },
     components: {
-
+HeaderTop
     },
 };
 </script>

@@ -40,3 +40,11 @@ vue-cli+webpack+vue-router+vuex+es6/es7+git+mint-ui+axios+styuls(css)+第三方�
 
 
 git 空文件不显示 
+
+
+
+//vue开发   
+组件抽取 (公共组件一定要抽出来),
+(具名插槽的基本使用:公共组件可以根据内容的不一样采用具名的形式实现公共内容不一样的组件)
+
+// 父组件动态向子组件传递参数  v-bind进行绑定   子组件通过props 进行接收 
