@@ -50,7 +50,7 @@
 <style scoped lang='stylus'>
 @import '../../common/stylus/mixins';
 
-        
+section        
   	.search  //搜索
           width 100%
           .search_form
