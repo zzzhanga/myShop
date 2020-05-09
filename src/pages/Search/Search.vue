@@ -51,7 +51,7 @@
 @import '../../common/stylus/mixins';
 
 section        
-  	.search  //搜索
+  	&.search  //搜索
           width 100%
           .search_form
             clearFix()
