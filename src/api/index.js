@@ -6,9 +6,9 @@ import ajax from './ajax.js'
 // let baseUrl='http://localhost:4000'
 let baseUrl='/api'
 export const  reqAddress =(geohash) =>ajax('/api/position/'+geohash)
-
 // reqAddress()
 
 
 //  2 获取我们的分类http://localhost:3000/index_category
 export const  reqCategory =() =>ajax(baseUrl+'/index_category')
+// export const  reqShops =() =>ajax(baseUrl+'/index_category')

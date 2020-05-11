@@ -1,7 +1,7 @@
 <template>
    <section class="msite">
 
-        <HeaderTop :title='mytitle'>
+        <HeaderTop :title='address.name'>
 			<router-link slot="left" to="/search" class="header_search">
 				<i class="iconfont icon-sousuo"></i>
 			</router-link>
@@ -44,8 +44,10 @@ import  {mapState}  from 'vuex'
     },
     data() {
         return {
-      mytitle:'昌平区北七家宏福科技园(337省道北)',
-      msg:"随便洗洗睡了"
+
+      // mytitle:'昌平区北七家宏福科技园(337省道北)',
+      // msg:'xxxx'
+
 
         };
     },

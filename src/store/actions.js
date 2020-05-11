@@ -23,10 +23,7 @@ export default {
   }) {
     //   latitude: 40.10038, // 纬 度
     // longitude: 116.36867, // 经 度
-    let {
-      latitude,
-      longitude
-    } = state
+    let {latitude,longitude} = state
     // let latitude=state.latitude
     // let longitude=state.longitude
     // data ={
@@ -35,24 +32,26 @@ export default {
     // }
     // commit(RECEIVE_ADDRESS,data)
     let params = latitude + ',' + longitude
-    // console.log(params);
+ 
     
     let result = await reqAddress(params)
-
+    console.log(result);
+    
+    // commit 指的mutations里面的方法
     commit(RECEIVE_ADDRESS, {
       address: result.data
     })
   },
 
-  async getCategorys({commit}) {
+      
+    async  getCategorys({commit}) {
+       
+      let result=  await reqCategory()
+      // commit('mutations里面的方法名字','传递的对象')
+      commit(RECEIVE_CATEGORYS,{categorysx:result.data})
+  }
 
-    let result = await reqCategory()
-    commit(RECEIVE_CATEGORYS, {
-      categorys: result.data
-    })
-  },
-
-
+,
   getShops() {
 
   }

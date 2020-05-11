@@ -10,8 +10,8 @@ export  default  {
 [RECEIVE_ADDRESS](state,{address}) {
     state.address=address
 },
-[RECEIVE_CATEGORYS](state,{categorys}) {
-    state.categorys=categorys
+[RECEIVE_CATEGORYS](state,{categorysx}) {
+    state.categorys=categorysx
 }
 
 }

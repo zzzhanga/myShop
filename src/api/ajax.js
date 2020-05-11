@@ -23,7 +23,7 @@ export default function ajax(url, data = {}, type = 'get') {
         // console.log(index);
         dataStr = dataStr.substring(0, index)
         url = url + '?' + dataStr
-        myPromise = axios.get(url)
+        myPromise = axios.get(url)  //axios请求返回是一个promise ,结果在then(res)
 
       } else { //表示没有参数
         myPromise = axios.get(url)
@@ -33,11 +33,11 @@ export default function ajax(url, data = {}, type = 'get') {
 
 
     } else { // post 请求
-      axios.post(url, data)
+      myPromise=  axios.post(url, data)
     }
     //请求我们then的处理
-    myPromise.then(res => {
-      resolve(res)
+    myPromise.then(res => {  //axios 里面所有的数据都在data
+      resolve(res.data)
     }).catch(err => {
       reject(err)
     })
