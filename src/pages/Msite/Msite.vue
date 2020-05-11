@@ -34,6 +34,7 @@ import HeaderTop from '../../components/HeaderTop/HeaderTop'
 import MsiteNav from '../../components/MsiteNav/MsiteNav' 
 
 import ShopList  from '../../components/ShopList/ShopList' 
+import { reqAddress } from '../../api/index.js';
 export default {
     props: {
 
@@ -51,6 +52,13 @@ export default {
 
     },
 	mounted() { 
+    console.log('xxx');
+    
+    
+    reqAddress().then(res=>{
+      console.log(res);
+      
+    })
 		
 	},
     watch: {
