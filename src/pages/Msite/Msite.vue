@@ -35,7 +35,10 @@ import MsiteNav from '../../components/MsiteNav/MsiteNav'
 
 import ShopList  from '../../components/ShopList/ShopList' 
 import { reqAddress } from '../../api/index.js';
-export default {
+
+
+import  {mapState}  from 'vuex'
+ export default {
     props: {
 
     },
@@ -46,6 +49,7 @@ export default {
         };
     },
     computed: {
+      ...mapState(['address','categorys'])
 
     },
     created() {
@@ -53,12 +57,17 @@ export default {
     },
 	mounted() { 
     console.log('xxx');
+    //异步请求
+    this.$store.dispatch('getAddress')
+    this.$store.dispatch('getCategorys')
+    this.$store.dispatch('getShops')
+
     
     
-    reqAddress().then(res=>{
-      console.log(res);
+  //  reqAddress ().then(res=>{
+  //     console.log(res);
       
-    })
+  //   })
 		
 	},
     watch: {
