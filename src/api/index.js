@@ -5,7 +5,7 @@ import ajax from './ajax.js'
 // var port='3000'
 // let baseUrl='http://localhost:4000'
 let baseUrl='/api'
-export const  reqAddress =(geohash) =>ajax('/api/position',geohash)
+export const  reqAddress =(geohash) =>ajax('/api/position/'+geohash)
 
 // reqAddress()
 

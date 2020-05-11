@@ -4,10 +4,10 @@
 
 import {
   RECEIVE_ADDRESS,
-  RECEIVE_CATEGORYS,
-  RECEIVE_SHOPS
+  RECEIVE_CATEGORYS
 } from './mutation-types'
 
+import { reqAddress,reqCategory } from '../api/index.js';
 
 export default {
   //3个方法  
@@ -35,6 +35,8 @@ export default {
     // }
     // commit(RECEIVE_ADDRESS,data)
     let params = latitude + ',' + longitude
+    // console.log(params);
+    
     let result = await reqAddress(params)
 
     commit(RECEIVE_ADDRESS, {

@@ -34,7 +34,7 @@ import HeaderTop from '../../components/HeaderTop/HeaderTop'
 import MsiteNav from '../../components/MsiteNav/MsiteNav' 
 
 import ShopList  from '../../components/ShopList/ShopList' 
-import { reqAddress } from '../../api/index.js';
+
 
 
 import  {mapState}  from 'vuex'
@@ -44,7 +44,8 @@ import  {mapState}  from 'vuex'
     },
     data() {
         return {
-			mytitle:'昌平区北七家宏福科技园(337省道北)'
+      mytitle:'昌平区北七家宏福科技园(337省道北)',
+      msg:"随便洗洗睡了"
 
         };
     },
