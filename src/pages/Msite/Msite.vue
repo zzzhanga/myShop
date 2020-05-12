@@ -44,15 +44,14 @@ import  {mapState}  from 'vuex'
     },
     data() {
         return {
-
       // mytitle:'昌平区北七家宏福科技园(337省道北)',
       // msg:'xxxx'
 
 
         };
     },
-    computed: {
-      ...mapState(['address','categorys'])
+    computed: {   //主要映射 state  getters  
+      ...mapState(['address'])
 
     },
     created() {
