@@ -11,4 +11,6 @@ export const  reqAddress =(geohash) =>ajax('/api/position/'+geohash)
 
 //  2 获取我们的分类http://localhost:3000/index_category
 export const  reqCategory =() =>ajax(baseUrl+'/index_category')
-// export const  reqShops =() =>ajax(baseUrl+'/index_category')
+
+//http://localhost:4000/shops?latitude=40.10038&longitude=116.36867
+export const  reqShops =({latitude,longitude}) =>ajax('/api/shops',{latitude,longitude})

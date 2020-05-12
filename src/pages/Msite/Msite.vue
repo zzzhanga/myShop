@@ -64,12 +64,8 @@ import  {mapState}  from 'vuex'
     this.$store.dispatch('getCategorys')
     this.$store.dispatch('getShops')
 
-    
-    
-  //  reqAddress ().then(res=>{
-  //     console.log(res);
-      
-  //   })
+
+
 		
 	},
     watch: {
