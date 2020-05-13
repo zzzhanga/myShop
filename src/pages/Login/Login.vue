@@ -59,7 +59,7 @@
 	         </form>
 	         <a href="javascript:;" class="about_us">关于我们</a>
 	       </div>
-	       <a href="javascript:" class="go_back">
+	       <a href="javascript:" class="go_back"   @click="$router.back()">
 	         <i class="iconfont icon-jiantou2"></i>
 	       </a>
 	     </div>
@@ -203,9 +203,9 @@ export default {
       }
       if(result.code==0) {
       //获取到结果后的后续处理
-         let user =result.data 
+         let userInfo =result.data 
         //  注意单词拼写
-         this.$store.dispatch('recordUser', user)  // 剩下的就是vuex 那一套 
+         this.$store.dispatch('recordUser', userInfo)  // 剩下的就是vuex 那一套 
        this.$router.replace('/profile')
          
       }

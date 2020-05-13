@@ -5,7 +5,9 @@
 import {
   RECEIVE_ADDRESS,
   RECEIVE_CATEGORYS,
-  RECEIVE_SHOPS
+  RECEIVE_SHOPS,
+  RECEIVE_USER_INFO,
+  RESET_USER_INFO
 } from './mutation-types'
 
 import {
@@ -21,7 +23,7 @@ export default {
   // 方法三  触发shops
 
   // http://localhost:3000/position/40.10038,116.36867
-
+  //获取地址
   async getAddress({
     commit,
     state
@@ -51,7 +53,7 @@ export default {
     })
   },
 
-
+   //获取产品分类
   async getCategorys({
       commit
     }) {
@@ -64,6 +66,8 @@ export default {
     }
 
     ,
+
+    //获取商家
   async getShops({
     commit,
     state
@@ -81,6 +85,15 @@ export default {
     commit(RECEIVE_SHOPS, {
       shops: result.data
     })
+  }
+
+  ,
+  //获取个人信息
+  recordUser({commit},user) {
+    console.log(user);
+    
+    commit(RECEIVE_USER_INFO,{userInfo:user})
+
   }
 
 
