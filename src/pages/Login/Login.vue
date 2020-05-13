@@ -28,22 +28,37 @@
 	           <div   :class="{on:!isLoginPhone}" >
 	             <section>
 	               <section class="login_message">
-	                 <input type="tel" maxlength="11" placeholder="手机/邮箱/用户名">
+	                 <input type="tel" maxlength="11" placeholder="手机/邮箱/用户"
+                   v-model="name"
+                   >
 	               </section>
 	               <section class="login_verification">
-	                 <input type="tel" maxlength="8" placeholder="密码">
-	                 <div class="switch_button off">
-	                   <div class="switch_circle"></div>
-	                   <span class="switch_text">...</span>
+	                 <input type="password" maxlength="8" placeholder="密码"  v-model='pwd'
+                   v-if='!isrightPwd'
+                   >
+                     <input type="text" maxlength="8" placeholder="密码"  v-model='pwd'
+                     v-else
+                     >
+
+
+
+	                 <div class="switch_button" 
+                   :class="isrightPwd?'on':'off'"
+                    @click="isrightPwd=!isrightPwd">
+	                   <div class="switch_circle"
+                     :class="{right:isrightPwd}"
+                     
+                     ></div>
+	                   <span class="switch_text"> {{isrightPwd?'abc':'...'}}</span>
 	                 </div>
 	               </section>
 	               <section class="login_message">
-	                 <input type="text" maxlength="11" placeholder="验证码">
-	                 <img class="get_verification" src="./images/captcha.svg" alt="captcha">
+	                 <input type="text" maxlength="11" placeholder="验证码" v-model="captcha">
+	                 <img class="get_verification" src="http://localhost:4000/captcha" alt="captcha"   @click='getCaptcha'>
 	               </section>
 	             </section>
 	           </div>
-	           <button class="login_submit">登录</button>
+	           <button class="login_submit"   @click.prevent='login'>登录</button>
 	         </form>
 	         <a href="javascript:;" class="about_us">关于我们</a>
 	       </div>
@@ -64,7 +79,13 @@ export default {
       isLoginPhone:true,  //   切换手机号登陆还是账号密码登录  true 表示手机登录  false 表示密码登录
       phone:'',//手机号
       code:'',//手机号短信验证码
-      computedTime:0//计算时间
+      name:'',//用户名
+      pwd:'',//用户名密码
+      captcha:'',//图形验证码
+
+      computedTime:0,//计算时间
+      isrightPwd:false//切换密码是否可以看到
+      
       
 
 
@@ -88,7 +109,8 @@ export default {
 
 	},
 	methods: {
-    getCode() {
+    // 获取手机短信验证码
+     async getCode() {
      //先要判断一下倒计时是不是正在运行  如果computedTime==0 表示停止
      if(!this.computedTime) {
       this.computedTime=30
@@ -98,15 +120,25 @@ export default {
           clearInterval( this.IntervalId)
         }
      }, 1000);
+          // 发送ajax请求  获取到验证码
+           let result  = await  reqSendCode(this.phone)
+           if(result.code==1){
+             console.log(result.msg);
+             
+           }
      }
 
+    },
+    //2 获取图形验证码
+    getCaptcha(event) {
+      // alert('发送')
+      //服务器缓存 
+     event.target.src="http://localhost:4000/captcha?time="+Date.now()
+    },
 
-
-    
-      
-      
-
-
+    //3  登录提交事件功能开发 
+    login() {
+      //3.1
     }
 
 	},
@@ -217,6 +249,9 @@ export default {
                     background #fff
                     box-shadow 0 2px 4px 0 rgba(0,0,0,.1)
                     transition transform .3s
+                    &.right 
+                      transform translateX(27px)
+
               .login_hint
                 margin-top 12px
                 color #999
