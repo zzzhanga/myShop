@@ -4,26 +4,28 @@
 	       <div class="login_header">
 	         <h2 class="login_logo">硅谷外卖</h2>
 	         <div class="login_header_title">
-	           <a href="javascript:;" class="on">短信登录</a>
-	           <a href="javascript:;">密码登录</a>
+	           <a href="javascript:;"   :class="{on:isLoginPhone}"  @click='isLoginPhone=true' >短信登录</a>
+	           <a href="javascript:;"  :class="{on:!isLoginPhone}" @click='isLoginPhone=false'>密码登录</a>
 	         </div>
 	       </div>
 	       <div class="login_content">
 	         <form>
-	           <div class="on">
+	           <div     :class="{on:isLoginPhone}">
 	             <section class="login_message">
-	               <input type="tel" maxlength="11" placeholder="手机号">
-	               <button disabled="disabled" class="get_verification">获取验证码</button>
+	               <input type="tel" maxlength="11" placeholder="手机号"  v-model="phone">
+	               <button :disabled="!isRightPhone" class="get_verification" 
+                 :class="{black:isRightPhone}"
+                 @click.prevent='getCode'> {{computedTime>0 ?`还剩${computedTime}s`:'获取验证码'}}  </button>
 	             </section>
 	             <section class="login_verification">
-	               <input type="tel" maxlength="8" placeholder="验证码">
+	               <input type="tel" maxlength="8" placeholder="验证码"   v-model="code">
 	             </section>
 	             <section class="login_hint">
 	               温馨提示：未注册硅谷外卖帐号的手机号，登录时将自动注册，且代表已同意
 	               <a href="javascript:;">《用户服务协议》</a>
 	             </section>
 	           </div>
-	           <div>
+	           <div   :class="{on:!isLoginPhone}" >
 	             <section>
 	               <section class="login_message">
 	                 <input type="tel" maxlength="11" placeholder="手机/邮箱/用户名">
@@ -59,10 +61,21 @@ export default {
 	},
 	data() {
 		return {
+      isLoginPhone:true,  //   切换手机号登陆还是账号密码登录  true 表示手机登录  false 表示密码登录
+      phone:'',//手机号
+      code:'',//手机号短信验证码
+      computedTime:0//计算时间
+      
+
+
 
 		};
 	},
 	computed: {
+    //判断 是不是输入了正确的手机号码
+    isRightPhone() {
+      return  /^1\d{10}$/.test(this.phone) 
+    }
 
 	},
 	created() {
@@ -75,6 +88,26 @@ export default {
 
 	},
 	methods: {
+    getCode() {
+     //先要判断一下倒计时是不是正在运行  如果computedTime==0 表示停止
+     if(!this.computedTime) {
+      this.computedTime=30
+     this.IntervalId=setInterval(() => {
+        this.computedTime--
+        if(this.computedTime<=0) {
+          clearInterval( this.IntervalId)
+        }
+     }, 1000);
+     }
+
+
+
+    
+      
+      
+
+
+    }
 
 	},
 	components: {
@@ -143,6 +176,8 @@ export default {
                   color #ccc
                   font-size 14px
                   background transparent
+                  &.black
+                    color black
               .login_verification
                 position relative
                 margin-top 16px
