@@ -4,13 +4,13 @@
 	       <div class="login_header">
 	         <h2 class="login_logo">硅谷外卖</h2>
 	         <div class="login_header_title">
-	           <a href="javascript:;"   :class="{on:isLoginPhone}"  @click='isLoginPhone=true' >短信登录</a>
-	           <a href="javascript:;"  :class="{on:!isLoginPhone}" @click='isLoginPhone=false'>密码登录</a>
+	           <a href="javascript:;"   :class="{on:isWay}"  @click='isWay=true' >短信登录</a>
+	           <a href="javascript:;"  :class="{on:!isWay}" @click='isWay=false'>密码登录</a>
 	         </div>
 	       </div>
 	       <div class="login_content">
 	         <form>
-	           <div     :class="{on:isLoginPhone}">
+	           <div     :class="{on:isWay}">
 	             <section class="login_message">
 	               <input type="tel" maxlength="11" placeholder="手机号"  v-model="phone">
 	               <button :disabled="!isRightPhone" class="get_verification" 
@@ -25,7 +25,7 @@
 	               <a href="javascript:;">《用户服务协议》</a>
 	             </section>
 	           </div>
-	           <div   :class="{on:!isLoginPhone}" >
+	           <div   :class="{on:!isWay}" >
 	             <section>
 	               <section class="login_message">
 	                 <input type="tel" maxlength="11" placeholder="手机/邮箱/用户"
@@ -39,9 +39,6 @@
                      <input type="text" maxlength="8" placeholder="密码"  v-model='pwd'
                      v-else
                      >
-
-
-
 	                 <div class="switch_button" 
                    :class="isrightPwd?'on':'off'"
                     @click="isrightPwd=!isrightPwd">
@@ -66,17 +63,28 @@
 	         <i class="iconfont icon-jiantou2"></i>
 	       </a>
 	     </div>
+
+
+       <AlertTip  :alertText='msg'  v-show='showAlert'
+       @closeTip='closeTip'
+       ></AlertTip>
+  
 	   </section>
 </template>
 
 <script>
+
+import {reqPwdLogin,reqSendCode,reqSmsLogin} from '../../api/index'
+// import { MessageBox } from 'mint-ui';
+import  AlertTip from '../../components/AlertTip/AlertTip'
+
 export default {
 	props: {
 
 	},
 	data() {
 		return {
-      isLoginPhone:true,  //   切换手机号登陆还是账号密码登录  true 表示手机登录  false 表示密码登录
+      isWay:true,  //   切换手机号登陆还是账号密码登录  true 表示手机登录  false 表示密码登录
       phone:'',//手机号
       code:'',//手机号短信验证码
       name:'',//用户名
@@ -84,7 +92,9 @@ export default {
       captcha:'',//图形验证码
 
       computedTime:0,//计算时间
-      isrightPwd:false//切换密码是否可以看到
+      isrightPwd:false,//切换密码是否可以看到
+      msg:'',//消息提示
+      showAlert:false //控制弹框打开与关闭
       
       
 
@@ -109,6 +119,18 @@ export default {
 
 	},
 	methods: {
+      // 打开弹框
+      showAlt(text) {
+          this.showAlert=true
+          this.msg=text
+      },
+
+      //关闭弹框 
+      closeTip() {
+         this.showAlert=false
+      },
+
+
     // 获取手机短信验证码
      async getCode() {
      //先要判断一下倒计时是不是正在运行  如果computedTime==0 表示停止
@@ -122,10 +144,10 @@ export default {
      }, 1000);
           // 发送ajax请求  获取到验证码
            let result  = await  reqSendCode(this.phone)
-           if(result.code==1){
-             console.log(result.msg);
+          //  if(result.code==0){
+          //    console.log(result.msg);
              
-           }
+          //  }
      }
 
     },
@@ -137,12 +159,64 @@ export default {
     },
 
     //3  登录提交事件功能开发 
-    login() {
-      //3.1
+     async login() {
+
+
+      //  MessageBox('Notice', 'You clicked the button');
+      let result
+      //3.1  先要判断登录方式 
+      let {isWay,phone,code}=this
+      if(isWay) { //  表示手机号登录
+
+      if(!phone) {
+        // alert('手机号不能为空')
+        this.showAlt('手机号不对')
+        return 
+      } 
+      if(!code) {
+       this.showAlt('验证码不对')
+        return
+      }
+      //异步发送   同步发送
+       result =  await reqSmsLogin(phone,code)
+      //拿到结果过存储到vuex里面
+    //  console.log(result);
+      }else { //  用户名密码登录
+
+      let {name,pwd,captcha}=this
+      if(!name) {
+       this.showAlt('用户名不对')
+        return 
+      } 
+      if(!pwd) {
+        this.showAlt('密码不对')
+        return 
+      } 
+      if(!captcha) {
+        this.showAlt('图形验证码不对')
+        return 
+      } 
+
+      result =  await reqPwdLogin({name, pwd, captcha})
+      //拿到结果过存储到vuex里面
+    //  console.log(result);
+      }
+      if(result.code==0) {
+      //获取到结果后的后续处理
+         let user =result.data 
+        //  注意单词拼写
+         this.$store.dispatch('recordUser', user)  // 剩下的就是vuex 那一套 
+       this.$router.replace('/profile')
+         
+      }
+
+       
     }
 
 	},
 	components: {
+
+    AlertTip
 
 	},
 };
