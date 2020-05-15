@@ -5,6 +5,7 @@ ShopGoods组件
 </template>
 
 <script>
+import {mapActions, mapState}  from 'vuex'
 export default {
     props: {
 
@@ -21,12 +22,14 @@ export default {
 
     },
     mounted() {
+        this.getShopGoods()
 
     },
     watch: {
 
     },
     methods: {
+         ...mapActions(['getShopGoods'])
 
     },
     components: {

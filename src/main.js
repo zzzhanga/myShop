@@ -20,6 +20,11 @@ Vue.use(MintUI)
 
 
 
+//引入模拟mock数据 
+import  './mock/mockServer'
+
+
+
 
 Vue.config.productionTip = false
 

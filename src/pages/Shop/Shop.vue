@@ -1,6 +1,6 @@
 <template>
 <div>
-<ShopHeader/>
+<ShopHeader   :info='info'    />
 <div class="tab">
 <div class="tab-item">
 <router-link to="/shop/goods" replace>点餐</router-link>
@@ -20,6 +20,9 @@
 <script>
 
 import ShopHeader from '../../components/ShopHeader/ShopHeader.vue'
+
+
+import {mapActions, mapState}  from 'vuex'
 export default {
     props: {
 
@@ -30,6 +33,7 @@ export default {
         };
     },
     computed: {
+     ...mapState(['info'])   
 
     },
     created() {
@@ -37,11 +41,15 @@ export default {
     },
     mounted() {
 
+        // this.$store.dispatch('getShopGoods')
+        this.getShopInfo()
+
     },
     watch: {
 
     },
     methods: {
+        ...mapActions(['getShopInfo'])
 
     },
     components: {

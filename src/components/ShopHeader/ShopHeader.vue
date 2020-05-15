@@ -1,12 +1,15 @@
 <template>
     <div>
-ShopHeader.vue
+ShopHeader.vue--------{{info.name}}
     </div>
 </template>
 
 <script>
 export default {
     props: {
+        info:{
+            type:Object
+        }
 
     },
     data() {
@@ -21,6 +24,7 @@ export default {
 
     },
     mounted() {
+        console.log(this.info)
 
     },
     watch: {

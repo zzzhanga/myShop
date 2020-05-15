@@ -2,12 +2,20 @@
 //     categorys: [], // 分类数组
 //     shops: [], //商家数组
 
+// export const RECEIVE_GOODS = 'receive_goods' // 接收商品数组
+// export const RECEIVE_RATINGS = 'receive_ratings' // 接收商家评价数组
+// export const RECEIVE_INFO = 'receive_info' // 接收商家信息
+
+
 import {
   RECEIVE_ADDRESS,
   RECEIVE_CATEGORYS,
   RECEIVE_SHOPS,
   RECEIVE_USER_INFO,
-  RESET_USER_INFO
+  RESET_USER_INFO,
+  RECEIVE_GOODS,
+  RECEIVE_RATINGS,
+  RECEIVE_INFO
 
 } from './mutation-types'
 
@@ -16,7 +24,10 @@ import {
   reqCategory,
   reqShops,
   reqUserInfo,
-  reqLogout
+  reqLogout,
+  reqShopGoods,
+  reqShopRatings,
+  reqShopInfo
 } from '../api/index.js';
 
 export default {
@@ -121,13 +132,43 @@ export default {
       commit(RESET_USER_INFO)
 
     }
+  },
 
 
 
+  //异步获取商家商品信息 
+
+  async   getShopGoods({ commit }) {
+    let result = await reqShopGoods()
+    if (result.code == 0) {
+      let goods = result.data
+      commit(RECEIVE_GOODS, { goods })
+    }
+  },
+
+
+    //异步获取商家个人信息
+
+    async   getShopInfo({ commit }) {
+      let result = await reqShopInfo()
+      if (result.code == 0) {
+        let info = result.data
+        commit(RECEIVE_INFO, { info })
+      }
+    },
 
 
 
-  }
+    //异步获取商家商品评价
+    async   getShopRatings({ commit }) {
+      let result = await reqShopRatings()
+      if (result.code == 0) {
+        let ratings = result.data
+        commit(RECEIVE_RATINGS, { ratings })
+      }
+    },
+  
+  
 
 
 
