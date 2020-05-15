@@ -5,8 +5,13 @@
 			<router-link slot="left" to="/search" class="header_search">
 				<i class="iconfont icon-sousuo"></i>
 			</router-link>
-			<router-link slot="right" to="/login" class="header_login">
-				<span class="header_login_text">登录|注册</span>
+			<router-link slot="right"    :to="userInfo._id? '/userinfo':'/login'" class="header_login">
+
+       	<span class="header_login_text"   v-if='userInfo._id'>
+           	<i class="iconfont icon-person"></i>
+         </span>
+
+				<span class="header_login_text" v-else>登录|注册</span>
 			</router-link>
         </HeaderTop>
         <!--首页导航-->
@@ -51,7 +56,7 @@ import  {mapState}  from 'vuex'
         };
     },
     computed: {   //主要映射 state  getters  
-      ...mapState(['address'])
+      ...mapState(['address','userInfo'])
 
     },
     created() {

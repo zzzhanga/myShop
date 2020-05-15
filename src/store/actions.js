@@ -8,12 +8,15 @@ import {
   RECEIVE_SHOPS,
   RECEIVE_USER_INFO,
   RESET_USER_INFO
+
 } from './mutation-types'
 
 import {
   reqAddress,
   reqCategory,
-  reqShops
+  reqShops,
+  reqUserInfo,
+  reqLogout
 } from '../api/index.js';
 
 export default {
@@ -53,21 +56,21 @@ export default {
     })
   },
 
-   //获取产品分类
+  //获取产品分类
   async getCategorys({
-      commit
-    }) {
+    commit
+  }) {
 
-      let result = await reqCategory()
-      // commit('mutations里面的方法名字','传递的对象')
-      commit(RECEIVE_CATEGORYS, {
-        categorysx: result.data
-      })
-    }
+    let result = await reqCategory()
+    // commit('mutations里面的方法名字','传递的对象')
+    commit(RECEIVE_CATEGORYS, {
+      categorysx: result.data
+    })
+  }
 
-    ,
+  ,
 
-    //获取商家
+  //获取商家
   async getShops({
     commit,
     state
@@ -89,10 +92,40 @@ export default {
 
   ,
   //获取个人信息
-  recordUser({commit},user) {
+  recordUser({ commit }, user) {
     console.log(user);
-    
-    commit(RECEIVE_USER_INFO,{userInfo:user})
+
+    commit(RECEIVE_USER_INFO, { userInfo: user })
+
+  },
+
+
+  //异步 获取用户会话信息 
+  async  getUserInfo({ commit }) {
+    let result = await reqUserInfo()
+    if (result.code == 0) {
+      let user = result.data
+      commit(RECEIVE_USER_INFO, { userInfo: user })
+
+    }
+  },
+
+
+  // 异步退出用户登录 
+  async   getLogout({ commit }) {
+
+
+    let result = await reqLogout()
+
+    if (result.code == 0) {
+      commit(RESET_USER_INFO)
+
+    }
+
+
+
+
+
 
   }
 

@@ -9,12 +9,14 @@
 
 			<HeaderTop :title='mytitle'></HeaderTop>
         <section class="profile-number">
-          <a href="javascript:" class="profile-link">
+
+          <router-link  class="profile-link"  :to="userInfo._id ? '/userinfo' :'/login' ">
+          
             <div class="profile_image">
               <i class="iconfont icon-person"></i>
             </div>
             <div class="user-info">
-              <p class="user-info-top"> {{userInfo.name || '登录/注册'}} </p>
+              <p class="user-info-top"  v-if='!userInfo.phone' > {{userInfo.name || '登录/注册'}} </p>
               <p>
                 <span class="user-icon">
                   <i class="iconfont icon-shouji icon-mobile"></i>
@@ -27,7 +29,8 @@
             <span class="arrow">
               <i class="iconfont icon-jiantou1"></i>
             </span>
-          </a>
+         
+          </router-link>
         </section>
         <section class="profile_info_data border-1px">
           <ul class="info_data_list">
@@ -97,6 +100,14 @@
             </div>
           </a>
         </section>
+
+
+        <section class="profile_my_order border-1px"  v-if='userInfo._id'>
+              <mt-button    style="width:100%"  type="danger"
+              @click='goLogout'
+              
+              >退出登录</mt-button>
+        </section>
       </section>
     </div>
 </template>
@@ -105,6 +116,8 @@
 
 import HeaderTop from '../../components/HeaderTop/HeaderTop' 
 import {mapState}  from 'vuex'
+
+import { MessageBox } from 'mint-ui';
 
 export default {
     props: {
@@ -131,6 +144,27 @@ export default {
 
     },
     methods: {
+
+      goLogout() {
+        // alert(1)
+       MessageBox.confirm('确定执行此操作?').then(sure => {
+         console.log('确定');
+         //发送请求 去退出
+         this.$store.dispatch('getLogout')
+
+
+         
+  
+         },
+         cancel=>{
+           console.log('取消');
+           
+         }
+         
+         );
+       
+
+      }
 
     },
     components: {

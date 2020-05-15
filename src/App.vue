@@ -24,7 +24,12 @@
     name: 'App',
     components: {
       FooterGuide //2 挂载组件
-	},
+  },
+  
+   mounted() {
+     this.$store.dispatch('getUserInfo')
+   },
+
 	data() {
 		return {
 			flag:true
