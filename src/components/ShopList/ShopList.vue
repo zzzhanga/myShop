@@ -1,8 +1,10 @@
 <template>
 	<div class="shop_container">
             <ul class="shop_list">
-              <li class="shop_li border-1px"
+
+              <router-link   to='/shop'  class="shop_li border-1px"
               v-for='(shop,index) in shops' :key="index"
+              tag="li"
               >
                 <a>
                   <div class="shop_left">
@@ -51,7 +53,7 @@
                     </section>
                   </div>
                 </a>
-              </li>
+            </router-link>
              
             </ul>
           </div>
