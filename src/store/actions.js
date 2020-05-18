@@ -7,6 +7,8 @@
 // export const RECEIVE_INFO = 'receive_info' // 接收商家信息
 
 
+
+
 import {
   RECEIVE_ADDRESS,
   RECEIVE_CATEGORYS,
@@ -15,7 +17,9 @@ import {
   RESET_USER_INFO,
   RECEIVE_GOODS,
   RECEIVE_RATINGS,
-  RECEIVE_INFO
+  RECEIVE_INFO,
+  INCREMENT_FOOD_COUNT,
+  DECREMENT_FOOD_COUNT
 
 } from './mutation-types'
 
@@ -138,11 +142,12 @@ export default {
 
   //异步获取商家商品信息 
 
-  async   getShopGoods({ commit }) {
+  async   getShopGoods({ commit },callback) {
     let result = await reqShopGoods()
     if (result.code == 0) {
       let goods = result.data
       commit(RECEIVE_GOODS, { goods })
+      callback&callback()
     }
   },
 
@@ -167,6 +172,26 @@ export default {
         commit(RECEIVE_RATINGS, { ratings })
       }
     },
+
+
+    // 更新购物车数量方法 
+
+    updateFoodCount({commit},{isflag,food}) {
+     
+        if(isflag) { //表示添加
+          
+          commit(INCREMENT_FOOD_COUNT,{food})
+
+
+        }else { //表示减少
+
+          commit(DECREMENT_FOOD_COUNT,{food})
+
+
+
+        }
+
+    }
   
   
 

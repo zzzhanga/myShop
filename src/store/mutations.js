@@ -1,8 +1,14 @@
 
 // import {RECEIVE_ADDRESS,RECEIVE_CATEGORYS,RECEIVE_SHOPS} from './mutation-types'
+
+import Vue from 'vue'
 import {
     RECEIVE_ADDRESS, RECEIVE_CATEGORYS, RECEIVE_SHOPS, RECEIVE_USER_INFO,
-    RESET_USER_INFO, RECEIVE_GOODS, RECEIVE_RATINGS, RECEIVE_INFO
+    RESET_USER_INFO, RECEIVE_GOODS, RECEIVE_RATINGS, RECEIVE_INFO,
+    INCREMENT_FOOD_COUNT,
+    DECREMENT_FOOD_COUNT
+
+
 
 
 } from './mutation-types'
@@ -53,6 +59,39 @@ export default {
     //商家商品info个人信息获取
     [RECEIVE_INFO](state, { info }) {
         state.info = info
-    }
+    },
+
+    //input 数量增加
+    [INCREMENT_FOOD_COUNT](state, { food }) {
+        // alert('增加')
+
+        // console.log(food);
+
+        if (food.count) {
+            food.count++  //不能实现双向数据绑定
+
+
+        } else {
+            // food.count=1
+            Vue.set(food, 'count', 1)
+
+        }
+
+
+    },
+    //input 数量增加
+    [DECREMENT_FOOD_COUNT](state, { food }) {
+        if (food.count) {
+            food.count--;
+            
+
+        }
+
+
+
+
+
+    },
+
 
 }
