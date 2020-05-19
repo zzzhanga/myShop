@@ -73,6 +73,9 @@ import BScroll from 'better-scroll'
 //第二步实例化
 
 
+// import { MessageBox } from 'mint-ui';
+
+
 export default {
     data() {
         return {
@@ -157,8 +160,21 @@ export default {
 
         //清空购物车  
        clearCart(){
-         this.$store.dispatch('clearCart')
-       }
+         //给用户一个提示
+         //方法一
+      //    MessageBox.confirm('Are you sure delete?').then(sure => {
+      //       this.$store.dispatch('clearCart')  
+      //     },(cancel)=>{});      
+      //  }
+      // 方法二   
+               this.$messagebox.confirm('Are you sure delete?').then(sure => {
+                  this.$store.dispatch('clearCart')  
+                  this.$toast({
+                  message: '删除成功',
+                  iconClass: 'icon icon-success'
+                });
+           },(cancel)=>{});      
+        }
     },
     components:{
       CartControl

@@ -1,20 +1,22 @@
 <template>
+
   <div id="app">
 
     <router-view />
-
+ 
     <!--3 使用组件  -->
     <!-- 方法一 -->
 
          <FooterGuide   v-show='$route.meta.requiresAuth' > </FooterGuide>
-
-
 		    <!-- <FooterGuide   v-show='flag' > </FooterGuide> -->
     <!-- 方法二 -->
     <!-- <footer-guide></footer-guide> -->
 
     <!-- 引入公共组件 -->
+  
+
   </div>
+
 </template>
 
 <script>
