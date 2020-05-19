@@ -20,6 +20,8 @@
             <ul>
               <li class="food-item bottom-border-1px" v-for="(food, index) in good.foods"
                   :key="index" 
+
+                  @click="showFood(food)"
                   
                  
                   >
@@ -49,7 +51,10 @@
       </div>
       <!-- <ShopCart /> -->
     </div>
-    <!-- <Food :food="food" ref="food"/> -->
+    <Food :food="showMyfood" ref="food"/>
+    <!-- 1 父组件向子组件传递值 props 接受 -->
+    <!--  2 子组件向父组件传递值（传递的一个方法）$emit -->
+    <!-- 3  父组件调用子组件的方法 -->
   </div>
 </template>
 
@@ -68,6 +73,13 @@ import BScroll from 'better-scroll'
 
 
 
+// 引入Food组件
+import  Food from '../../../components/Food/Food'
+
+
+
+
+
 
 export default {
 
@@ -75,12 +87,14 @@ export default {
         return {
             // currentIndex:'',  //当前左边菜单高亮的索引
             tops:[] ,//获取所有food里面的li的滚出去的高度值
-            scrollY:''  //获取时候滚动的高度
+            scrollY:''  ,//获取时候滚动的高度
+            showMyfood:{}//定义food组件的内容
 
         }
     },
     components:{
-        CartControl
+        CartControl,
+        Food
     },
     computed: {
         ...mapState(['goods']),
@@ -188,6 +202,15 @@ export default {
            this.foodScroll.scrollTo(0,-top,300)
 
             
+        },
+        showFood(food) {
+          this.showMyfood=food
+         console.log(this.$refs.food); //找到 子组件 food组件
+
+          this.$refs.food.toggleShow()
+         
+
+
         }
 
 
