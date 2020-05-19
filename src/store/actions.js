@@ -4,7 +4,8 @@
 
 // export const RECEIVE_GOODS = 'receive_goods' // 接收商品数组
 // export const RECEIVE_RATINGS = 'receive_ratings' // 接收商家评价数组
-// export const RECEIVE_INFO = 'receive_info' // 接收商家信息
+// export const RECEIVE_INFO = 'receive_info' // 接收商家信息 
+// export const CLEAR_CART = 'clear_cart' // 清空购物车
 
 
 
@@ -19,7 +20,8 @@ import {
   RECEIVE_RATINGS,
   RECEIVE_INFO,
   INCREMENT_FOOD_COUNT,
-  DECREMENT_FOOD_COUNT
+  DECREMENT_FOOD_COUNT,
+  CLEAR_CART
 
 } from './mutation-types'
 
@@ -191,7 +193,14 @@ export default {
 
         }
 
-    }
+    },
+
+    //清空购物车 
+    clearCart({commit}) {
+     commit(CLEAR_CART)
+   }
+
+
   
   
 

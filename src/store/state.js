@@ -9,5 +9,6 @@ export default  {
     goods:[],// 商家商品列表
     ratings:[],//商家商品评价列表
     info:{},//商家个人信息  //保证第二层数据不报错 //不能第三层数据不出错
+    cartFoods:[]// 购物车数据
 
 }

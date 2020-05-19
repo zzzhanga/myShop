@@ -49,7 +49,8 @@
           </li>
         </ul>
       </div>
-      <!-- <ShopCart /> -->
+      <!-- 购物车结算组件 -->
+      <ShopCart />
     </div>
     <Food :food="showMyfood" ref="food"/>
     <!-- 1 父组件向子组件传递值 props 接受 -->
@@ -76,6 +77,9 @@ import BScroll from 'better-scroll'
 // 引入Food组件
 import  Food from '../../../components/Food/Food'
 
+// 引入shopCart组件 
+import  ShopCart from '../../../components/ShopCart/ShopCart'
+
 
 
 
@@ -94,7 +98,8 @@ export default {
     },
     components:{
         CartControl,
-        Food
+        Food,
+        ShopCart
     },
     computed: {
         ...mapState(['goods']),

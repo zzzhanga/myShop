@@ -6,7 +6,8 @@ import {
     RECEIVE_ADDRESS, RECEIVE_CATEGORYS, RECEIVE_SHOPS, RECEIVE_USER_INFO,
     RESET_USER_INFO, RECEIVE_GOODS, RECEIVE_RATINGS, RECEIVE_INFO,
     INCREMENT_FOOD_COUNT,
-    DECREMENT_FOOD_COUNT
+    DECREMENT_FOOD_COUNT,
+    CLEAR_CART
 
 
 
@@ -74,6 +75,8 @@ export default {
         } else {
             // food.count=1
             Vue.set(food, 'count', 1)
+            // 每次加一件商品的时候也需要把这件商品加入购物车
+            state.cartFoods.push(food)
 
         }
 
@@ -83,15 +86,18 @@ export default {
     [DECREMENT_FOOD_COUNT](state, { food }) {
         if (food.count) {
             food.count--;
-            
-
+            //减少商品的时候 如果这个商品的数量已经减到0了 那么需要把这个商品从购物车里面移除
+            if(food.count==0) {
+                state.cartFoods.splice(state.cartFoods.indexOf(food),1)
+            } 
         }
-
-
-
-
-
     },
+    //清空购物车
+    [CLEAR_CART](state) {
+
+     state.cartFoods.forEach(food=>food.count=0) //把后面追加的count也变为0
+     state.cartFoods=[]  //清空购物车
+    }
 
 
 }
