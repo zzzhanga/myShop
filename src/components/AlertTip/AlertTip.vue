@@ -19,6 +19,7 @@ export default {
   methods: {
     closeTip() {
       this.$emit("closeTip");
+      console.log('sdfsfds');
     }
   }
 };
